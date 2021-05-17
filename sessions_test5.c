@@ -65,15 +65,15 @@ int main (int argc, char *argv[])
         fprintf (stderr, "  PSET1 %d: %s (len: %d)\n", i, name, psetlen);
     }
 
-    rc = MPI_Group_from_session_pset (session, "mpi://world", &group);
+    rc = MPI_Group_from_session_pset (session, "mpi://WORLD", &group);
     if (MPI_SUCCESS != rc) {
-        fprintf (stderr, "Could not get a group for mpi://world. rc = %d\n", rc);
+        fprintf (stderr, "Could not get a group for mpi://WORLD. rc = %d\n", rc);
         abort ();
     }
     
-    rc = MPI_Group_from_session_pset (session1, "mpi://world", &group1);
+    rc = MPI_Group_from_session_pset (session1, "mpi://WORLD", &group1);
     if (MPI_SUCCESS != rc) {
-        fprintf (stderr, "Could not get a group1 for mpi://world. rc = %d\n", rc);
+        fprintf (stderr, "Could not get a group1 for mpi://WORLD. rc = %d\n", rc);
         abort ();
     }
 
@@ -87,15 +87,15 @@ int main (int argc, char *argv[])
 
     fprintf (stderr, "World Comm Sum (1): %d\n", sum);
 
-    rc = MPI_Group_from_session_pset (session, "mpi://self", &group);
+    rc = MPI_Group_from_session_pset (session, "mpi://SELF", &group);
     if (MPI_SUCCESS != rc) {
-        fprintf (stderr, "Could not get a group for mpi://self. rc = %d\n", rc);
+        fprintf (stderr, "Could not get a group for mpi://SELF. rc = %d\n", rc);
         abort ();
     }
 
-    rc = MPI_Group_from_session_pset (session1, "mpi://self", &group1);
+    rc = MPI_Group_from_session_pset (session1, "mpi://SELF", &group1);
     if (MPI_SUCCESS != rc) {
-        fprintf (stderr, "Could not get a group1 for mpi://self. rc = %d\n", rc);
+        fprintf (stderr, "Could not get a group1 for mpi://SELF. rc = %d\n", rc);
         abort ();
     }
 

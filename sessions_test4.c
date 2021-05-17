@@ -51,7 +51,7 @@ int main (int argc, char *argv[])
     }
 
     printf("MPI_GROUP_NULL = 0x%lx \n", MPI_GROUP_NULL);
-    rc = MPI_Group_from_session_pset (session, "mpi://world", MPI_GROUP_NULL);
+    rc = MPI_Group_from_session_pset (session, "mpi://WORLD", MPI_GROUP_NULL);
     if (MPI_SUCCESS != rc) {
         fprintf (stderr, "Could not get a group for mpi://invalid. rc = %d\n", rc);
         abort ();

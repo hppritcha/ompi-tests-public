@@ -50,9 +50,9 @@ int main (int argc, char *argv[])
         fprintf (stderr, "  PSET %d: %s (len: %d)\n", i, name, psetlen);
     }
 
-    rc = MPI_Group_from_session_pset (session, "mpi://invalid", &group);
+    rc = MPI_Group_from_session_pset (session, "mpi://INVALID", &group);
     if (MPI_SUCCESS != rc) {
-        fprintf (stderr, "Could not get a group for mpi://invalid. rc = %d\n", rc);
+        fprintf (stderr, "Could not get a group for mpi://INVALID. rc = %d\n", rc);
         abort ();
     }
 
