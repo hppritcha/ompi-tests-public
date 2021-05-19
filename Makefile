@@ -8,14 +8,15 @@ EXAMPLES = \
 	 sessions_test2 \
 	 sessions_test3 \
 	 sessions_test4 \
-	 sessions_test5
+	 sessions_test5 \
+	 sessions_test7
 
 
 # Default target.  Always build the C MPI examples.  Only build the
 # others if we have the appropriate Open MPI / OpenSHMEM language
 # bindings.
 
-all: sessions_test1 sessions_test2 sessions_test3 sessions_test4 sessions_test5
+all: sessions_test1 sessions_test2 sessions_test3 sessions_test4 sessions_test5 sessions_test7
 
 
 # The usual "clean" target
@@ -34,4 +35,6 @@ sessions_test3: sessions_test3.c
 sessions_test4: sessions_test4.c
 	$(MPICC) $(CFLAGS) $(LDFLAGS) $? $(LDLIBS) -o $@
 sessions_test5: sessions_test5.c
+	$(MPICC) $(CFLAGS) $(LDFLAGS) $? $(LDLIBS) -o $@
+sessions_test7: sessions_test7.c
 	$(MPICC) $(CFLAGS) $(LDFLAGS) $? $(LDLIBS) -o $@
