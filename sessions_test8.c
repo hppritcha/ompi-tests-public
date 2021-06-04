@@ -13,9 +13,9 @@ int main (int argc, char *argv[])
     MPI_Session session, session1;
     MPI_Errhandler errhandler;
     MPI_Group group, group1;
-    MPI_Comm comm_world, comm_self, comm_world1, comm_self1;
+    MPI_Comm comm_world, comm_world1;
     MPI_Info info;
-    int rc, npsets, npsets1, one = 1, sum, sum1, i;
+    int rc, npsets, npsets1, i;
 
     rc = MPI_Session_create_errhandler (my_session_errhandler, &errhandler);
     if (MPI_SUCCESS != rc) {
@@ -83,48 +83,13 @@ int main (int argc, char *argv[])
     MPI_Comm_create_from_group (group1, "my_world", MPI_INFO_NULL, MPI_ERRORS_RETURN, &comm_world1);
     MPI_Group_free (&group1);
 
-    MPI_Allreduce (&one, &sum, 1, MPI_INT, MPI_SUM, comm_world);
-
-    fprintf (stderr, "World Comm Sum (1): %d\n", sum);
-
-    rc = MPI_Group_from_session_pset (session, "mpi://SELF", &group);
-    if (MPI_SUCCESS != rc) {
-        fprintf (stderr, "Could not get a group for mpi://SELF. rc = %d\n", rc);
-        abort ();
-    }
-
-    rc = MPI_Group_from_session_pset (session1, "mpi://SELF", &group1);
-    if (MPI_SUCCESS != rc) {
-        fprintf (stderr, "Could not get a group1 for mpi://SELF. rc = %d\n", rc);
-        abort ();
-    }
-
-    MPI_Comm_create_from_group (group, "myself", MPI_INFO_NULL, MPI_ERRORS_RETURN, &comm_self);
-    MPI_Group_free (&group);
-    MPI_Allreduce (&one, &sum, 1, MPI_INT, MPI_SUM, comm_self);
-
-    MPI_Comm_create_from_group (group1, "myself", MPI_INFO_NULL, MPI_ERRORS_RETURN, &comm_self1);
-    MPI_Group_free (&group1);
-
-    fprintf (stderr, "Self Comm Sum (1): %d\n", sum);
-
-    MPI_Errhandler_free (&errhandler);
-    MPI_Info_free (&info);
+    int result;
+    MPI_Comm_compare(comm_world, comm_world1, &result);
+    printf("MPI_Comm_compare result = %d\n", result);
 
     MPI_Comm_free (&comm_world);
-    MPI_Comm_free (&comm_self);
-    MPI_Session_finalize (&session);
-
-    MPI_Allreduce (&one, &sum1, 1, MPI_INT, MPI_SUM, comm_world1);
-
-    fprintf (stderr, "World Comm Sum1 (1): %d\n", sum1);
-
-    MPI_Allreduce (&one, &sum1, 1, MPI_INT, MPI_SUM, comm_self1);
-
-    fprintf (stderr, "Self Comm Sum1 (1): %d\n", sum1);
-
     MPI_Comm_free (&comm_world1);
-    MPI_Comm_free (&comm_self1);
+    MPI_Session_finalize (&session);
     MPI_Session_finalize (&session1);
 
     return 0;
